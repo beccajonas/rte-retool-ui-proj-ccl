@@ -12,6 +12,7 @@
     "@tryretool/custom-component-support": "latest",
     "framer-motion": "^6.5.1",
     "lexical": "^0.33.1",
+    "lucide-react": "^0.542.0",
     "react": "^19.1.1",
     "react-bootstrap-icons": "^1.11.6",
     "react-dom": "^19.1.1"

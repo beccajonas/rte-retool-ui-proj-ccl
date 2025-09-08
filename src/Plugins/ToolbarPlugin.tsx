@@ -186,31 +186,31 @@ export default function ToolbarPlugin() {
 
   return (
     <Box>
-      <Flex gap={4}>
-        <ButtonGroup size="xs" isAttached variant="ghost" color="#444">
-          {RICH_TEXT_OPTIONS.map(({ id, label, icon, fontSize }) =>
-            id === RichTextAction.Divider ? (
-              <Divider />
-            ) : (
-              <IconButton
-                aria-label={label as string}
-                icon={icon}
-                fontSize={fontSize}
-                onClick={() => onAction(id)}
-                isDisabled={disableMap[id]}
-                {...getSelectedBtnProps(selectionMap[id])}
-              />
-            )
-          )}
-        </ButtonGroup>
-      </Flex>
-      <ButtonGroup isAttached variant="ghost" color="#444">
+      <ButtonGroup size="xs" isAttached variant="ghost" color="#444">
+        {RICH_TEXT_OPTIONS.map(({ id, label, icon, fontSize }) =>
+          id === RichTextAction.Divider ? (
+            <Divider key={id} />
+          ) : (
+            <IconButton
+              key={id}
+              aria-label={label as string}
+              icon={icon}
+              fontSize={fontSize}
+              onClick={() => onAction(id)}
+              isDisabled={disableMap[id]}
+              {...getSelectedBtnProps(selectionMap[id])}
+            />
+          )
+        )}
+
+        {/* Add your plugins inline in the same ButtonGroup */}
+        <Divider />
         <ListPlugin blockType={blockType} setBlockType={setBlockType} />
         <Divider />
-        {/* <ImagePlugin />
-        <Divider /> */}
-        {/* <CodeBlockPlugin /> */}
-        <Divider />
+        <CodeBlockPlugin />
+        {/* <Divider /> */}
+        {/* <ImagePlugin /> */}
+        {/* <Divider /> */}
         {/* <LinkPlugin /> */}
       </ButtonGroup>
     </Box>
