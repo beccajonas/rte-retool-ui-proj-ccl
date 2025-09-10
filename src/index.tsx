@@ -5,10 +5,8 @@ import { Button } from "@chakra-ui/react"
 
 export function richTextEditor() {
   const [name, _setName] = Retool.useStateString({
-    name: "name",
-    label: "other",
-    inspector: "text",
-    initialValue: "message"
+    name: "message",
+    initialValue: "My message"
   })
 
   return (
