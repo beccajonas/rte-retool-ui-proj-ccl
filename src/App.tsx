@@ -3,8 +3,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react"
 import Form from "./Form"
 
 type ChildProps = {
-  setMessage: (newValue: string) => void // ✅ expects a string
-  message: string
+  setName: (newValue: string) => void // ✅ expects a string
 }
 
 const theme = extendTheme({
@@ -28,10 +27,10 @@ const queryClient = new QueryClient({
   }
 })
 
-export default function App({ setMessage, message }: ChildProps) {
+export default function App({ setName }: ChildProps) {
   return (
     <ChakraProvider theme={theme}>
-      <Form setMessage={setMessage} message={message} />
+      <Form setName={setName} />
     </ChakraProvider>
   )
 }
