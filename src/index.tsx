@@ -4,14 +4,16 @@ import App from "./App"
 import { Button } from "@chakra-ui/react"
 
 export function richTextEditor() {
-  const [message, _setMessage] = Retool.useStateString({
-    name: "message",
-    initialValue: "message content"
+  const [name, _setName] = Retool.useStateString({
+    name: "name",
+    label: "other",
+    inspector: "text",
+    initialValue: "message"
   })
 
   return (
     <StrictMode>
-      <App setMessage={_setMessage} message={message} />
+      <App setName={_setName} />
     </StrictMode>
   )
 }

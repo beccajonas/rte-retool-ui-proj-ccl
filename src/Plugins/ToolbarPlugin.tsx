@@ -17,7 +17,7 @@ import {
   $getSelection,
   $isRangeSelection
 } from "lexical"
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect } from "react"
 import { mergeRegister, $getNearestNodeOfType } from "@lexical/utils"
 import { css } from "@chakra-ui/react"
 import ListPlugin from "./ListPlugin"
@@ -37,7 +37,7 @@ export default function ToolbarPlugin() {
   )
   const [blockType, setBlockType] = useState("paragraph")
 
-  const updateToolbar = useCallback(() => {
+  const updateToolbar = () => {
     const selection = $getSelection()
 
     if ($isRangeSelection(selection)) {
@@ -73,7 +73,7 @@ export default function ToolbarPlugin() {
         setBlockType("paragraph")
       }
     }
-  }, [editor])
+  }
 
   useEffect(() => {
     return mergeRegister(
@@ -113,7 +113,7 @@ export default function ToolbarPlugin() {
         LOW_PRIORIRTY
       )
     )
-  }, [editor, updateToolbar])
+  }, [])
 
   const onAction = (id: RichTextAction) => {
     console.log("Action triggered:", id)
@@ -188,7 +188,7 @@ export default function ToolbarPlugin() {
     <Box>
       <ButtonGroup size="xs" isAttached variant="ghost" color="#444">
         {RICH_TEXT_OPTIONS.map(({ id, label, icon, fontSize }) =>
-          id.startsWith(RichTextAction.Divider) ? (
+          id === RichTextAction.Divider ? (
             <Divider key={id} />
           ) : (
             <IconButton
@@ -196,7 +196,7 @@ export default function ToolbarPlugin() {
               aria-label={label as string}
               icon={icon}
               fontSize={fontSize}
-              onClick={() => onAction(id as RichTextAction)}
+              onClick={() => onAction(id)}
               isDisabled={disableMap[id]}
               {...getSelectedBtnProps(selectionMap[id])}
             />
@@ -204,9 +204,9 @@ export default function ToolbarPlugin() {
         )}
 
         {/* Add your plugins inline in the same ButtonGroup */}
-        <Divider key={"divider-1"} />
+        <Divider />
         <ListPlugin blockType={blockType} setBlockType={setBlockType} />
-        <Divider key={"divider-2"} />
+        <Divider />
         <CodeBlockPlugin />
         {/* <Divider /> */}
         {/* <ImagePlugin /> */}
