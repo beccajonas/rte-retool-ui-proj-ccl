@@ -6,9 +6,10 @@ import { Button } from "@chakra-ui/react"
 
 type ChildProps = {
   setMessage: (newValue: string) => void
+  message: string
 }
 
-export default function SaveHtmlPlugin({ setMessage }: ChildProps) {
+export default function SaveHtmlPlugin({ setMessage, message }: ChildProps) {
   const [editor] = useLexicalComposerContext()
 
   const saveHtml = () => {

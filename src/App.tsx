@@ -4,6 +4,7 @@ import Form from "./Form"
 
 type ChildProps = {
   setMessage: (newValue: string) => void // ✅ expects a string
+  message: string
 }
 
 const theme = extendTheme({
@@ -27,10 +28,10 @@ const queryClient = new QueryClient({
   }
 })
 
-export default function App({ setMessage }: ChildProps) {
+export default function App({ setMessage, message }: ChildProps) {
   return (
     <ChakraProvider theme={theme}>
-      <Form setMessage={setMessage} />
+      <Form setMessage={setMessage} message={message} />
     </ChakraProvider>
   )
 }
