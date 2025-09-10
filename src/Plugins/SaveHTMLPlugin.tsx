@@ -5,10 +5,11 @@ import { $getRoot, $createParagraphNode } from "lexical"
 import { Button } from "@chakra-ui/react"
 
 type ChildProps = {
-  setName: (newValue: string) => void
+  setMessage: (newValue: string) => void
+  message: string
 }
 
-export default function SaveHtmlPlugin({ setName }: ChildProps) {
+export default function SaveHtmlPlugin({ setMessage, message }: ChildProps) {
   const [editor] = useLexicalComposerContext()
 
   const saveHtml = () => {
@@ -18,7 +19,8 @@ export default function SaveHtmlPlugin({ setName }: ChildProps) {
     editor.update(() => {
       htmlString = $generateHtmlFromNodes(editor)
       console.log("Editor HTML:", htmlString)
-      setName(htmlString)
+      console.log("Current message state:", message)
+      setMessage(htmlString)
 
       // Clear editor after saving
       const root = $getRoot()
@@ -29,7 +31,7 @@ export default function SaveHtmlPlugin({ setName }: ChildProps) {
 
   return (
     <Button colorScheme="blue" size="xs" onClick={saveHtml}>
-      Save
+      Send Message
     </Button>
   )
 }
