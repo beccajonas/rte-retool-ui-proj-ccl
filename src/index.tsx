@@ -11,7 +11,7 @@ export function richTextEditor() {
 
   return (
     <StrictMode>
-      <App setName={_setMessage} />
+      <App setMessage={_setMessage} />
     </StrictMode>
   )
 }
