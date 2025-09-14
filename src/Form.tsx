@@ -5,9 +5,10 @@ import { RichTextEditor } from "./RichTextEditor"
 type ChildProps = {
   setMessage: (newValue: string) => void
   message: string
+  macro: string
 }
 
-export default function Form({ setMessage, message }: ChildProps) {
+export default function Form({ setMessage, message, macro }: ChildProps) {
   const [value, setValue] = useState("")
 
   return (
@@ -17,8 +18,12 @@ export default function Form({ setMessage, message }: ChildProps) {
         placeholder={message}
         name="text"
         value={value}
-        onChange={(newValue) => setValue(newValue)}
+        onChange={(newValue) => {
+          setValue(newValue)
+          console.log(macro)
+        }}
         message={message}
+        macro={macro}
       />
     </Box>
   )

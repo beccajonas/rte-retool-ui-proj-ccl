@@ -27,6 +27,7 @@ interface RichTextEditorProps {
   name: string
   setMessage: (newValue: string) => void
   message: string
+  macro: string
 }
 
 const urlRegExp = new RegExp(
