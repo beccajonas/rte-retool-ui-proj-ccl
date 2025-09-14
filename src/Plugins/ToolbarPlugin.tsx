@@ -204,9 +204,9 @@ export default function ToolbarPlugin() {
         )}
 
         {/* Add your plugins inline in the same ButtonGroup */}
-        <Divider />
+        <Divider key={"divider-1"} />
         <ListPlugin blockType={blockType} setBlockType={setBlockType} />
-        <Divider />
+        <Divider key={"divider-2"} />
         <CodeBlockPlugin />
         {/* <Divider /> */}
         {/* <ImagePlugin /> */}
