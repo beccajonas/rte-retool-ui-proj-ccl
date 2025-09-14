@@ -45,7 +45,8 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = React.memo(
     placeholder,
     name,
     setMessage,
-    message
+    message,
+    macro
   }) {
     const initialConfig = useMemo(
       () => ({
@@ -112,8 +113,8 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = React.memo(
           <ListPlugin />
           <LinkPlugin validateUrl={validateUrl} />
           <ClickableLinkPlugin />
-          {/* Uncomment if you want live updates */}
-          {/* <CustomOnChangePlugin value={value} onChange={onChange} /> */}
+          {/* Live updates for macro changes */}
+          <CustomOnChangePlugin value={value} onChange={onChange} />
           <SaveHtmlPlugin setMessage={setMessage} message={message} />
         </LexicalComposer>
       </div>

@@ -20,7 +20,8 @@ export default function Form({ setMessage, message, macro }: ChildProps) {
         value={value}
         onChange={(newValue) => {
           setValue(newValue)
-          console.log(macro)
+          console.log("Macro:", macro)
+          console.log("New value:", newValue)
         }}
         message={message}
         macro={macro}
