@@ -4,8 +4,10 @@ import {
   $getSelection,
   $isRangeSelection,
   $getRoot,
-  $createParagraphNode
+  $createParagraphNode,
+  $createTextNode
 } from "lexical"
+import { $generateNodesFromDOM } from "@lexical/html"
 
 type Props = {
   macro: string
@@ -30,7 +32,19 @@ export default function InsertOnMessageChangePlugin({ macro }: Props) {
         selection = $getSelection()
       }
       if ($isRangeSelection(selection)) {
-        selection.insertText(macro)
+        // Prefer HTML import path to preserve links and formatting
+        try {
+          const parser = new DOMParser()
+          const dom = parser.parseFromString(macro, "text/html")
+          const nodes = $generateNodesFromDOM(editor, dom)
+          if (nodes.length > 0) {
+            selection.insertNodes(nodes)
+          } else {
+            selection.insertText(macro)
+          }
+        } catch {
+          selection.insertText(macro)
+        }
         lastProcessedRef.current = macro
       }
     })

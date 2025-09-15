@@ -52,8 +52,8 @@
     "vite": "^7.1.2"
   },
   "retoolCustomComponentLibraryConfig": {
-    "name": "Revamp2",
-    "label": "Revamp2",
+    "name": "RTE",
+    "label": "RTE",
     "description": "",
     "entryPoint": "src/index.tsx",
     "outputPath": "dist"
