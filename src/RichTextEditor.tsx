@@ -19,7 +19,7 @@ import SaveHtmlPlugin from "./Plugins/SaveHTMLPlugin"
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin"
 import { LinkNode } from "@lexical/link"
 import { ClickableLinkPlugin } from "@lexical/react/LexicalClickableLinkPlugin"
-import QuickInsertSelect from "./Plugins/QuickInsertSelect"
+import InsertOnMessageChangePlugin from "./Plugins/InsertOnMessageChangePlugin"
 
 interface RichTextEditorProps {
   value: string
@@ -117,7 +117,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = React.memo(
           <ListPlugin />
           <LinkPlugin validateUrl={validateUrl} />
           <ClickableLinkPlugin />
-          <QuickInsertSelect />
+          <InsertOnMessageChangePlugin macro={macro} />
           {/* Live updates for macro changes */}
           <CustomOnChangePlugin value={value} onChange={onChange} />
           <SaveHtmlPlugin setMessage={setMessage} message={message} />

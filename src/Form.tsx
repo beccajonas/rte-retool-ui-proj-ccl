@@ -15,13 +15,11 @@ export default function Form({ setMessage, message, macro }: ChildProps) {
     <Box p={1}>
       <RichTextEditor
         setMessage={setMessage}
-        placeholder={message}
+        placeholder="Enter your message here"
         name="text"
         value={value}
         onChange={(newValue) => {
           setValue(newValue)
-          console.log("Macro:", macro)
-          console.log("New value:", newValue)
         }}
         message={message}
         macro={macro}
