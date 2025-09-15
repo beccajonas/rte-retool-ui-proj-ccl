@@ -188,7 +188,9 @@ export default function ToolbarPlugin() {
     <Box>
       <ButtonGroup size="xs" isAttached variant="ghost" color="#444">
         {RICH_TEXT_OPTIONS.map(({ id, label, icon, fontSize }) =>
-          id === RichTextAction.Divider ? (
+          id === RichTextAction.Divider1 ||
+          id === RichTextAction.Divider2 ||
+          id === RichTextAction.Divider3 ? (
             <Divider key={id} />
           ) : (
             <IconButton
@@ -204,9 +206,9 @@ export default function ToolbarPlugin() {
         )}
 
         {/* Add your plugins inline in the same ButtonGroup */}
-        <Divider key={"divider-1"} />
+        <Divider key={"divider-plugin-1"} />
         <ListPlugin blockType={blockType} setBlockType={setBlockType} />
-        <Divider key={"divider-2"} />
+        <Divider key={"divider-plugin-2"} />
         <CodeBlockPlugin />
         {/* <Divider /> */}
         {/* <ImagePlugin /> */}

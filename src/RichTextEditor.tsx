@@ -19,6 +19,7 @@ import SaveHtmlPlugin from "./Plugins/SaveHTMLPlugin"
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin"
 import { LinkNode } from "@lexical/link"
 import { ClickableLinkPlugin } from "@lexical/react/LexicalClickableLinkPlugin"
+import InsertOnMessageChangePlugin from "./Plugins/InsertOnMessageChangePlugin"
 
 interface RichTextEditorProps {
   value: string
@@ -27,14 +28,18 @@ interface RichTextEditorProps {
   name: string
   setMessage: (newValue: string) => void
   message: string
+  macro: string
 }
 
-const urlRegExp = new RegExp(
-  /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[\w]*))?)/
-)
-
 export function validateUrl(url: string): boolean {
-  return url === "https://" || urlRegExp.test(url)
+  if (!url) return false
+  if (url === "https://") return true
+  try {
+    const parsed = new URL(url)
+    return parsed.protocol === "http:" || parsed.protocol === "https:"
+  } catch {
+    return /^www\./i.test(url)
+  }
 }
 
 export const RichTextEditor: React.FC<RichTextEditorProps> = React.memo(
@@ -44,7 +49,8 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = React.memo(
     placeholder,
     name,
     setMessage,
-    message
+    message,
+    macro
   }) {
     const initialConfig = useMemo(
       () => ({
@@ -111,8 +117,9 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = React.memo(
           <ListPlugin />
           <LinkPlugin validateUrl={validateUrl} />
           <ClickableLinkPlugin />
-          {/* Uncomment if you want live updates */}
-          {/* <CustomOnChangePlugin value={value} onChange={onChange} /> */}
+          <InsertOnMessageChangePlugin macro={macro} />
+          {/* Live updates for macro changes */}
+          <CustomOnChangePlugin value={value} onChange={onChange} />
           <SaveHtmlPlugin setMessage={setMessage} message={message} />
         </LexicalComposer>
       </div>
