@@ -11,7 +11,7 @@ export function richTextEditor() {
 
   const [macro, _setMacros] = Retool.useStateString({
     name: "macro",
-    initialValue: "My macro"
+    initialValue: "My macro!"
   })
 
   return (
