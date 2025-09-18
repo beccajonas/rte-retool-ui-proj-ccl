@@ -210,10 +210,10 @@ export default function ToolbarPlugin() {
         <ListPlugin blockType={blockType} setBlockType={setBlockType} />
         <Divider key={"divider-plugin-2"} />
         <CodeBlockPlugin />
-        {/* <Divider /> */}
+        <Divider />
         {/* <ImagePlugin /> */}
         {/* <Divider /> */}
-        {/* <LinkPlugin /> */}
+        <LinkPlugin />
       </ButtonGroup>
     </Box>
   )
