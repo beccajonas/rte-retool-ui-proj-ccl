@@ -1,4 +1,11 @@
-import { Box, ButtonGroup, Flex, IconButton, Select } from "@chakra-ui/react"
+import {
+  Box,
+  ButtonGroup,
+  Flex,
+  IconButton,
+  Select,
+  Button
+} from "@chakra-ui/react"
 import { ArrowClockwise, ArrowCounterclockwise } from "react-bootstrap-icons"
 import {
   LOW_PRIORIRTY,
@@ -26,8 +33,18 @@ import { $isListNode, ListNode } from "@lexical/list"
 import CodeBlockPlugin from "./CodeBlockPlugin"
 import ImagePlugin from "./ImagePlugin"
 import LinkPlugin from "./LinkPlugin"
+import { $generateHtmlFromNodes } from "@lexical/html"
+import { $getRoot, $createParagraphNode } from "lexical"
 
-export default function ToolbarPlugin() {
+type ToolbarPluginProps = {
+  setMessage: (newValue: string) => void
+  message: string
+}
+
+export default function ToolbarPlugin({
+  setMessage,
+  message
+}: ToolbarPluginProps) {
   const [editor] = useLexicalComposerContext()
   const [disableMap, setDisableMap] = useState<{ [id: string]: boolean }>({
     [RichTextAction.Undo]: true,
@@ -185,50 +202,73 @@ export default function ToolbarPlugin() {
         }
       : {}
 
+  const saveHtml = () => {
+    let htmlString = ""
+
+    // 1️⃣ Generate + clear inside Lexical update
+    editor.update(() => {
+      htmlString = $generateHtmlFromNodes(editor)
+      console.log("Editor HTML:", htmlString)
+      setMessage(htmlString)
+
+      // Clear editor after saving
+      const root = $getRoot()
+      root.clear()
+      root.append($createParagraphNode())
+    })
+  }
+
   return (
     <Box>
-      <ButtonGroup size="xs" isAttached variant="ghost" color="#444">
-        {RICH_TEXT_OPTIONS.map(({ id, label, icon, fontSize }) =>
-          id === RichTextAction.Divider1 ||
-          id === RichTextAction.Divider2 ||
-          id === RichTextAction.Divider3 ? (
-            <Divider key={id} />
-          ) : (
-            <IconButton
-              key={id}
-              aria-label={label as string}
-              icon={icon}
-              fontSize={fontSize}
-              onClick={() => onAction(id)}
-              isDisabled={disableMap[id]}
-              {...getSelectedBtnProps(selectionMap[id])}
-            />
-          )
-        )}
+      <Flex justify="space-between" align="center">
+        <ButtonGroup size="xs" isAttached variant="ghost" color="#444">
+          {RICH_TEXT_OPTIONS.map(({ id, label, icon, fontSize }) =>
+            id === RichTextAction.Divider1 ||
+            id === RichTextAction.Divider2 ||
+            id === RichTextAction.Divider3 ? (
+              <Divider key={id} />
+            ) : (
+              <IconButton
+                key={id}
+                aria-label={label as string}
+                icon={icon}
+                fontSize={fontSize}
+                onClick={() => onAction(id)}
+                isDisabled={disableMap[id]}
+                {...getSelectedBtnProps(selectionMap[id])}
+              />
+            )
+          )}
 
-        {/* Add your plugins inline in the same ButtonGroup */}
-        <Divider key={"divider-plugin-1"} />
-        <ListPlugin blockType={blockType} setBlockType={setBlockType} />
-        <Divider key={"divider-plugin-2"} />
-        <CodeBlockPlugin />
-        <Divider key={"divider-codeblock-link"} />
-        <LinkPlugin />
-        <Divider key={"divider-undo-redo"} />
-        <IconButton
-          key={RichTextAction.Undo}
-          aria-label="Undo"
-          icon={<ArrowCounterclockwise />}
-          onClick={() => onAction(RichTextAction.Undo)}
-          isDisabled={disableMap[RichTextAction.Undo]}
-        />
-        <IconButton
-          key={RichTextAction.Redo}
-          aria-label="Redo"
-          icon={<ArrowClockwise />}
-          onClick={() => onAction(RichTextAction.Redo)}
-          isDisabled={disableMap[RichTextAction.Redo]}
-        />
-      </ButtonGroup>
+          {/* Add your plugins inline in the same ButtonGroup */}
+          <Divider key={"divider-plugin-1"} />
+          <ListPlugin blockType={blockType} setBlockType={setBlockType} />
+          <Divider key={"divider-plugin-2"} />
+          <CodeBlockPlugin />
+          <Divider key={"divider-codeblock-link"} />
+          <LinkPlugin />
+          <Divider key={"divider-undo-redo"} />
+          <IconButton
+            key={RichTextAction.Undo}
+            aria-label="Undo"
+            icon={<ArrowCounterclockwise />}
+            onClick={() => onAction(RichTextAction.Undo)}
+            isDisabled={disableMap[RichTextAction.Undo]}
+          />
+          <IconButton
+            key={RichTextAction.Redo}
+            aria-label="Redo"
+            icon={<ArrowClockwise />}
+            onClick={() => onAction(RichTextAction.Redo)}
+            isDisabled={disableMap[RichTextAction.Redo]}
+          />
+        </ButtonGroup>
+
+        {/* Send button aligned to the right */}
+        <Button colorScheme="blue" size="xs" onClick={saveHtml}>
+          Send message
+        </Button>
+      </Flex>
     </Box>
   )
 }

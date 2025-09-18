@@ -73,7 +73,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = React.memo(
     return (
       <div className="editor-container">
         <LexicalComposer initialConfig={initialConfig}>
-          <ToolBarPlugin />
+          <ToolBarPlugin setMessage={setMessage} message={message} />
           <div
             className={css({
               position: "relative",
