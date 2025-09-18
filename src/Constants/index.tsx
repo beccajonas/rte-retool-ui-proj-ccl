@@ -3,12 +3,6 @@ import {
   ArrowCounterclockwise,
   Code,
   Highlighter,
-  Justify,
-  JustifyLeft,
-  JustifyRight,
-  Subscript,
-  Superscript,
-  TextCenter,
   TypeBold,
   TypeItalic,
   TypeStrikethrough,
@@ -52,52 +46,9 @@ export const RICH_TEXT_OPTIONS = [
     label: "Strikethrough"
   },
   {
-    id: RichTextAction.Superscript,
-    icon: <Superscript />,
-    label: "Superscript"
-  },
-  {
-    id: RichTextAction.Subscript,
-    icon: <Subscript />,
-    label: "Subscript"
-  },
-  {
     id: RichTextAction.Code,
     icon: <Code />,
     label: "Code"
-  },
-  { id: RichTextAction.Divider2 },
-  {
-    id: RichTextAction.LeftAlign,
-    icon: <JustifyLeft />,
-    label: "Align Left"
-  },
-  {
-    id: RichTextAction.CenterAlign,
-    icon: <TextCenter />,
-    label: "Align Center"
-  },
-  {
-    id: RichTextAction.RightAlign,
-    icon: <JustifyRight />,
-    label: "Align Right"
-  },
-  {
-    id: RichTextAction.JustifyAlign,
-    icon: <Justify />,
-    label: "Align Justify"
-  },
-
-  { id: RichTextAction.Divider3 },
-  {
-    id: RichTextAction.Undo,
-    icon: <ArrowCounterclockwise />,
-    label: "Undo"
-  },
-  {
-    id: RichTextAction.Redo,
-    icon: <ArrowClockwise />,
-    label: "Redo"
   }
 ]
 

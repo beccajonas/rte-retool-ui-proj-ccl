@@ -1,4 +1,5 @@
 import { Box, ButtonGroup, Flex, IconButton, Select } from "@chakra-ui/react"
+import { ArrowClockwise, ArrowCounterclockwise } from "react-bootstrap-icons"
 import {
   LOW_PRIORIRTY,
   RICH_TEXT_OPTIONS,
@@ -134,14 +135,14 @@ export default function ToolbarPlugin() {
         editor.dispatchCommand(FORMAT_TEXT_COMMAND, "strikethrough")
         break
       }
-      case RichTextAction.Superscript: {
-        editor.dispatchCommand(FORMAT_TEXT_COMMAND, "superscript")
-        break
-      }
-      case RichTextAction.Subscript: {
-        editor.dispatchCommand(FORMAT_TEXT_COMMAND, "subscript")
-        break
-      }
+      // case RichTextAction.Superscript: {
+      //   editor.dispatchCommand(FORMAT_TEXT_COMMAND, "superscript")
+      //   break
+      // }
+      // case RichTextAction.Subscript: {
+      //   editor.dispatchCommand(FORMAT_TEXT_COMMAND, "subscript")
+      //   break
+      // }
       case RichTextAction.Highlight: {
         editor.dispatchCommand(FORMAT_TEXT_COMMAND, "highlight")
         break
@@ -154,18 +155,18 @@ export default function ToolbarPlugin() {
         editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "left")
         break
       }
-      case RichTextAction.RightAlign: {
-        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "right")
-        break
-      }
-      case RichTextAction.CenterAlign: {
-        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "center")
-        break
-      }
-      case RichTextAction.JustifyAlign: {
-        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "justify")
-        break
-      }
+      // case RichTextAction.RightAlign: {
+      //   editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "right")
+      //   break
+      // }
+      // case RichTextAction.CenterAlign: {
+      //   editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "center")
+      //   break
+      // }
+      // case RichTextAction.JustifyAlign: {
+      //   editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "justify")
+      //   break
+      // }
       case RichTextAction.Undo: {
         editor.dispatchCommand(UNDO_COMMAND, undefined)
         break
@@ -210,10 +211,23 @@ export default function ToolbarPlugin() {
         <ListPlugin blockType={blockType} setBlockType={setBlockType} />
         <Divider key={"divider-plugin-2"} />
         <CodeBlockPlugin />
-        <Divider />
-        {/* <ImagePlugin /> */}
-        {/* <Divider /> */}
+        <Divider key={"divider-codeblock-link"} />
         <LinkPlugin />
+        <Divider key={"divider-undo-redo"} />
+        <IconButton
+          key={RichTextAction.Undo}
+          aria-label="Undo"
+          icon={<ArrowCounterclockwise />}
+          onClick={() => onAction(RichTextAction.Undo)}
+          isDisabled={disableMap[RichTextAction.Undo]}
+        />
+        <IconButton
+          key={RichTextAction.Redo}
+          aria-label="Redo"
+          icon={<ArrowClockwise />}
+          onClick={() => onAction(RichTextAction.Redo)}
+          isDisabled={disableMap[RichTextAction.Redo]}
+        />
       </ButtonGroup>
     </Box>
   )

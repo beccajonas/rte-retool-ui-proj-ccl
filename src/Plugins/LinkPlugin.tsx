@@ -162,19 +162,20 @@ export default function LinkPlugin() {
         }
 
         if (existingLink) {
-          try {
-            existingLink.setURL?.(url)
-          } catch {}
-          // Only update text if user provided new text
-          if (linkText && linkText.trim() !== existingLink.getTextContent?.()) {
-            const textContent = linkText.trim()
-            if (textContent) {
-              const children = existingLink.getChildren?.() || []
-              if (Array.isArray(children)) {
-                children.forEach((c: any) => c.remove?.())
-              }
-              existingLink.append($createTextNode(textContent))
-            }
+          // For existing links, use TOGGLE_LINK_COMMAND to update
+          // First remove the existing link
+          editor.dispatchCommand(TOGGLE_LINK_COMMAND, null)
+
+          // Then create a new link with updated URL and text
+          const textContent = (
+            linkText ||
+            existingLink.getTextContent?.() ||
+            url
+          ).trim()
+          if (textContent) {
+            const newLinkNode = $createLinkNode(url)
+            newLinkNode.append($createTextNode(textContent))
+            $insertNodes([newLinkNode])
           }
           return
         }
