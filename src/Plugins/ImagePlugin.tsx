@@ -1,14 +1,14 @@
-import { Button, IconButton } from '@chakra-ui/react'
-import React, { useRef, useState } from 'react'
-import { ImageFill } from 'react-bootstrap-icons'
-import Modal from '../Components/Modal'
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
-import { $createImageNode } from '../nodes/ImageNode'
-import { $insertNodes } from 'lexical'
+import { Button, IconButton } from "@chakra-ui/react"
+import React, { useRef, useState } from "react"
+import { ImageFill } from "react-bootstrap-icons"
+import Modal from "../Components/Modal"
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
+import { $createImageNode } from "../nodes/ImageNode"
+import { $insertNodes } from "lexical"
 
 export default function ImagePlugin() {
   const [isOpen, setIsOpen] = useState(false)
-  const [url, setURL] = useState('')
+  const [url, setURL] = useState("")
   const [file, setFile] = useState<File>()
   const [isDragging, setIsDragging] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -16,16 +16,16 @@ export default function ImagePlugin() {
   const [editor] = useLexicalComposerContext()
 
   const onAddImage = () => {
-    let src = ''
+    let src = ""
     if (url) src = url
     if (file) src = URL.createObjectURL(file)
 
     editor.update(() => {
-      const node = $createImageNode({ src, altText: '' })
+      const node = $createImageNode({ src, altText: "" })
       $insertNodes([node])
     })
     setFile(undefined)
-    setURL('')
+    setURL("")
     setIsOpen(false)
   }
 
@@ -35,7 +35,7 @@ export default function ImagePlugin() {
     setIsDragging(false)
 
     const droppedFile = e.dataTransfer.files?.[0]
-    if (droppedFile && droppedFile.type.startsWith('image/')) {
+    if (droppedFile && droppedFile.type.startsWith("image/")) {
       setFile(droppedFile)
     }
   }
@@ -53,13 +53,13 @@ export default function ImagePlugin() {
         type="file"
         ref={inputRef}
         accept="image/*"
-        style={{ display: 'none' }}
+        style={{ display: "none" }}
         onChange={(e) => {
           const selectedFile = e.target.files?.[0]
           if (selectedFile) {
             setFile(selectedFile)
           }
-          e.target.value = ''
+          e.target.value = ""
         }}
       />
       {isOpen && (
@@ -69,6 +69,7 @@ export default function ImagePlugin() {
           footer={
             <Button
               variant="ghost"
+              size="sm"
               isDisabled={!url && !file}
               onClick={onAddImage}
             >
@@ -79,7 +80,7 @@ export default function ImagePlugin() {
         >
           <div
             style={{
-              position: 'relative'
+              position: "relative"
             }}
             onDragOver={(e) => {
               e.preventDefault()
@@ -96,36 +97,37 @@ export default function ImagePlugin() {
             {/* Main drop area */}
             <div
               style={{
-                border: '2px dashed #ccc',
-                borderRadius: '8px',
-                padding: '20px',
-                textAlign: 'center',
-                cursor: 'pointer'
+                border: "2px dashed #ccc",
+                borderRadius: "6px",
+                padding: "8px",
+                textAlign: "center",
+                cursor: "pointer",
+                fontSize: "12px"
               }}
               onClick={() => inputRef?.current?.click()}
             >
               {file
                 ? `Selected: ${file.name}`
-                : 'Drag and drop an image here, or click to select'}
+                : "Drag and drop an image here, or click to select"}
             </div>
 
             {/* Drag overlay */}
             {isDragging && (
               <div
                 style={{
-                  position: 'absolute',
+                  position: "absolute",
                   top: 0,
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  background: 'rgba(0,0,0,0.6)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'white',
-                  fontSize: '1.5rem',
-                  borderRadius: '8px',
-                  pointerEvents: 'none'
+                  background: "rgba(0,0,0,0.6)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "white",
+                  fontSize: "1rem",
+                  borderRadius: "6px",
+                  pointerEvents: "none"
                 }}
               >
                 Drop image here

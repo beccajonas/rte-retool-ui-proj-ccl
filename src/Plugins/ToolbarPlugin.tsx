@@ -247,6 +247,8 @@ export default function ToolbarPlugin({
           <CodeBlockPlugin />
           <Divider key={"divider-codeblock-link"} />
           <LinkPlugin />
+          <Divider key={"divider-link-image"} />
+          <ImagePlugin />
           <Divider key={"divider-undo-redo"} />
           <IconButton
             key={RichTextAction.Undo}

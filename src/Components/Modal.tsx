@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 import {
   Modal as ChakraModal,
   ModalOverlay,
@@ -7,7 +7,7 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton
-} from '@chakra-ui/react'
+} from "@chakra-ui/react"
 
 interface CustomModalProps {
   title: string
@@ -25,13 +25,19 @@ export default function Modal({
   footer
 }: CustomModalProps) {
   return (
-    <ChakraModal isOpen={isOpen} onClose={onClose}>
+    <ChakraModal isOpen={isOpen} onClose={onClose} size="xs">
       <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>{title}</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>{children}</ModalBody>
-        <ModalFooter>{footer}</ModalFooter>
+      <ModalContent maxW="300px" mt={4} mx="auto">
+        <ModalHeader fontSize="xs" py={2}>
+          {title}
+        </ModalHeader>
+        <ModalCloseButton size="sm" />
+        <ModalBody pb={2} pt={0}>
+          {children}
+        </ModalBody>
+        <ModalFooter pt={1} pb={2}>
+          {footer}
+        </ModalFooter>
       </ModalContent>
     </ChakraModal>
   )
